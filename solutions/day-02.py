@@ -8,7 +8,7 @@ TEST_RAW = '''A Y
 B X
 C Z'''
 
-RPC_MAPPING = {
+RPS_MAPPING = {
     'A': 0,     # rock
     'B': 1,     # paper
     'C': 2,     # scissors
@@ -19,7 +19,7 @@ RPC_MAPPING = {
 
 
 def parse_raw(raw: str) -> List[List[str]]:
-    '''Returns the splitted games of RPC with each player's choice'''
+    '''Returns the splitted games of RPS with each player's choice'''
     return [game.split() for game in raw.split('\n')]
 
 
@@ -28,7 +28,7 @@ def round_score(choices: List[str]) -> int:
     Returns the total score of the round.
 
     It is the sum of the score for the shape you selected:
-        1 for Rock, 2 for Paper, 3 for Scissors (+1 to RPC mapping ID)
+        1 for Rock, 2 for Paper, 3 for Scissors (+1 to RPS mapping ID)
     and the score for the outcome of the round:
         0 if you lost, 3 if the round was a draw, 6 if you won
     '''
@@ -37,7 +37,7 @@ def round_score(choices: List[str]) -> int:
         [0, 3, 6],
         [6, 0, 3]
     ]
-    competitor, you = [RPC_MAPPING[choice] for choice in choices]
+    competitor, you = [RPS_MAPPING[choice] for choice in choices]
     return you + 1 + outcome_score[competitor][you]
 
 
@@ -54,7 +54,7 @@ def update_strategy(choices: List[str]) -> List[str]:
         ['X', 'Y', 'Z'],
         ['Y', 'Z', 'X']
     ]
-    competitor, you = [RPC_MAPPING[choice] for choice in choices]
+    competitor, you = [RPS_MAPPING[choice] for choice in choices]
     return [choices[0], outcome_choice[competitor][you]]
 
 
